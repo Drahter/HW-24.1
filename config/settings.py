@@ -1,18 +1,17 @@
-
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$s)z)2wvs5elpdd_1e$ja7wya%=fq!+4m@z4+n8xr-mdx@()u3'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', False) == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -26,7 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'study',
+    'users',
     'rest_framework',
 ]
 
@@ -65,12 +65,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'HW_24',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-    }
+    'default': {'ENGINE': 'django.db.backends.postgresql',
+                'NAME': os.getenv('NAME'),
+                'USER': os.getenv('USER'),
+                'PASSWORD': os.getenv('PASSWORD')}
 }
 
 
