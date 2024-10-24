@@ -4,7 +4,7 @@ from study.models import Course, Lesson
 from study.serializers import CourseSerializer, LessonSerializer
 
 
-class CourseViewSet(viewsets.ViewSet):
+class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
 
