@@ -18,7 +18,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=100, unique=True, verbose_name='Название урока')
     description = models.TextField(verbose_name='Описание урока')
     image = models.ImageField(upload_to='study/lesson_preview/', blank=True, null=True, verbose_name='Превью урока')
-    course = models.ForeignKey(Course, verbose_name='Курс', on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, verbose_name='Курс', on_delete=models.CASCADE, related_name='lesson_set')
     url = models.URLField(blank=True, null=True, verbose_name='ссылка')
 
     def __str__(self):
