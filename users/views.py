@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, RetrieveAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import generics
@@ -19,7 +19,7 @@ class PaymentListAPIView(generics.ListAPIView):
     ordering_fields = ['date']
 
 
-class UserCreateAPIView(generics.CreateAPIView):
+class UserCreateAPIView(CreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
@@ -28,3 +28,18 @@ class UserCreateAPIView(generics.CreateAPIView):
         user = serializer.save(is_active=True)
         user.set_password(user.password)
         user.save()
+
+
+class UserRetrieveAPIView(RetrieveAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+
+class UserUpdateAPIView(UpdateAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+
+class UserDestroyAPIView(DestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
