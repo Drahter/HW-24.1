@@ -89,3 +89,4 @@ class SubscriptionCreateAPIView(generics.CreateAPIView):
             message = 'подписка добавлена'
 
         return Response({"message": message})
+
