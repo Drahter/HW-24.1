@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from study.models import Course, Lesson
+from study.validators import validate_video_url
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -10,6 +11,8 @@ class CourseSerializer(serializers.ModelSerializer):
 
 
 class LessonSerializer(serializers.ModelSerializer):
+    url = serializers.URLField(validators=[validate_video_url])
+
     class Meta:
         model = Lesson
         fields = '__all__'
