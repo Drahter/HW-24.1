@@ -76,7 +76,7 @@ class SubscriptionCreateAPIView(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         user = self.request.user
-        course_id = request.data.get('course_id')
+        course_id = request.data.get('course')
         course_obj = get_object_or_404(Course, pk=course_id)
         subscription_obj = Subscription.objects.filter(user=user, course=course_obj)
 

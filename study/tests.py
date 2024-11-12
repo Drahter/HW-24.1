@@ -2,7 +2,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from study.models import Course, Lesson
+from study.models import Course, Lesson, Subscription
 from users.models import User
 
 
@@ -70,4 +70,46 @@ class LessonTestCase(APITestCase):
         )
         self.assertEqual(
             Lesson.objects.all().count(), 0
+        )
+
+
+class SubscriptionTestCase(APITestCase):
+
+    def setUp(self):
+        self.user = User.objects.create(email='test@example.com')
+        self.course = Course.objects.create(title='Тестовый курс', description='Описание')
+        self.lesson = Lesson.objects.create(title='Тестовый урок', description='Описание урока', course=self.course,
+                                            owner=self.user)
+        self.client.force_authenticate(user=self.user)
+
+
+    def test_subscription_create(self):
+        url = reverse('study:subscribe')
+        data = {
+            'user': self.user,
+            'course': self.course.pk
+        }
+        response = self.client.post(url, data)
+        data = response.json()
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK
+        )
+        self.assertEqual(
+            data, {'message': 'подписка добавлена'}
+        )
+
+    def test_subscription_delete(self):
+        self.subscription = Subscription.objects.create(user=self.user, course=self.course)
+        url = reverse('study:subscribe')
+        data = {
+            'user': self.user,
+            'course': self.course.pk
+        }
+        response = self.client.post(url, data)
+        data = response.json()
+        self.assertEqual(
+            response.status_code, status.HTTP_200_OK
+        )
+        self.assertEqual(
+            data, {'message': 'подписка удалена'}
         )
