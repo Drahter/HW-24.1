@@ -1,14 +1,14 @@
 from django.db import models
 
 from config.settings import AUTH_USER_MODEL
-from users.models import User
 
 
 class Course(models.Model):
     title = models.CharField(max_length=100, unique=True, verbose_name='Название курса')
     description = models.TextField(verbose_name='Описание курса')
     image = models.ImageField(upload_to='study/course_preview/', blank=True, null=True, verbose_name='Превью курса')
-    owner = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Владелец')
+    owner = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL,
+                              verbose_name='Владелец')
 
     def __str__(self):
         return self.title
@@ -24,7 +24,8 @@ class Lesson(models.Model):
     image = models.ImageField(upload_to='study/lesson_preview/', blank=True, null=True, verbose_name='Превью урока')
     course = models.ForeignKey(Course, verbose_name='Курс', on_delete=models.CASCADE, related_name='lesson_set')
     url = models.URLField(blank=True, null=True, verbose_name='ссылка')
-    owner = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, verbose_name='Владелец')
+    owner = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE,
+                              verbose_name='Владелец')
 
     def __str__(self):
         return self.title
@@ -35,7 +36,8 @@ class Lesson(models.Model):
 
 
 class Subscription(models.Model):
-    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE,
+                             verbose_name='Пользователь')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', blank=True, null=True)
     is_active = models.BooleanField(default=False, verbose_name='Активность')
 

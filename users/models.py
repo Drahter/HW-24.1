@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# from study.models import Course, Lesson
+from study.models import Course, Lesson
 
 
 # Create your models here.
@@ -30,10 +30,11 @@ class Payment(models.Model):
         ('cash', 'Наличный'),
         ('non_cash', 'Безналичный')
     )
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Пользователь')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True,
+                             verbose_name='Пользователь')
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата оплаты')
-#    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Оплата курса')
-#    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Оплата урока')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Оплата курса')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Оплата урока')
     price = models.PositiveIntegerField(default=0, verbose_name="Сумма оплаты")
     payment_method = models.CharField(max_length=15, choices=PAYMENT_METHODS, default='non_cash',
                                       verbose_name='Метод оплаты')
