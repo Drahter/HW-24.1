@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
+    'corsheaders',
 
     'study',
     'users',
@@ -41,6 +43,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -132,8 +136,20 @@ REST_FRAMEWORK = {
     ]
 }
 
-
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
+
+# CORS_ALLOWED_ORIGINS = [
+#     'http://127.0.0.1:8000/',
+#     'https://read-and-write.example.com',
+# ]
+#
+# CSRF_TRUSTED_ORIGINS = [
+#     'https://read-and-write.example.com',
+#     'http://127.0.0.1:8000/'
+#
+# ]
+
+# CORS_ALLOW_ALL_ORIGINS = False
