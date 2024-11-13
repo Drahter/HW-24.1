@@ -20,6 +20,8 @@ coverage = "^7.6.4"
 drf-yasg = "^1.21.8"
 django-cors-headers = "^4.6.0"
 requests = "^2.32.3"
+stripe = "^11.2.0"
+forex-python = "^1.8"
 
 
 [build-system]

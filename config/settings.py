@@ -153,3 +153,5 @@ SIMPLE_JWT = {
 # ]
 
 # CORS_ALLOW_ALL_ORIGINS = False
+
+STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
