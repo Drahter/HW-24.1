@@ -24,6 +24,9 @@ class CourseViewSet(viewsets.ModelViewSet):
         course.owner = self.request.user
         course.save()
 
+    def perform_update(self, serializer):
+        pass
+
     def get_permissions(self):
         if self.action == 'create':
             self.permission_classes = (~IsModer,)
@@ -89,4 +92,3 @@ class SubscriptionCreateAPIView(generics.CreateAPIView):
             message = 'подписка добавлена'
 
         return Response({"message": message})
-
