@@ -11,8 +11,9 @@ def mail_sending(subject, message, email):
         send_mail(subject=subject,
                   message=message,
                   from_email=EMAIL_HOST_USER,
-                  recipient_list=[email, ],
+                  recipient_list=email,
+                  fail_silently=False
                   )
 
-    except smtplib.SMTPException as e:
-        print(str(e))
+    except smtplib.SMTPException:
+        raise smtplib.SMTPException
