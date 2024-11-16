@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from study.models import Course, Lesson, Subscription
 from study.paginators import CustomPagination
 from study.serializers import CourseSerializer, LessonSerializer, CourseDetailSerializer, SubscriptionSerializer
+from study.tasks import send_update_mail
 from users.permissions import IsModer, IsOwner
 
 
@@ -23,6 +24,10 @@ class CourseViewSet(viewsets.ModelViewSet):
         course = serializer.save()
         course.owner = self.request.user
         course.save()
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+        send_update_mail.delay(course.pk)
 
     def get_permissions(self):
         if self.action == 'create':
@@ -89,4 +94,3 @@ class SubscriptionCreateAPIView(generics.CreateAPIView):
             message = 'подписка добавлена'
 
         return Response({"message": message})
-
