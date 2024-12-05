@@ -141,16 +141,15 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
-# CORS_ALLOWED_ORIGINS = [
-#     'http://127.0.0.1:8000/',
-#     'https://read-and-write.example.com',
-# ]
-#
-# CSRF_TRUSTED_ORIGINS = [
-#     'https://read-and-write.example.com',
-#     'http://127.0.0.1:8000/'
-#
-# ]
+CORS_ALLOWED_ORIGINS = [
+    'https://read-and-write.example.com',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://read-and-write.example.com',
+    'http://127.0.0.1:8000/'
+
+]
 
 # CORS_ALLOW_ALL_ORIGINS = False
 
